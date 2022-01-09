@@ -1,0 +1,99 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+host: localhost:8080
+basePath: /
+tags:
+  - name: student-controller
+    description: Student Controller
+paths:
+  /api/v1/student:
+    get:
+      tags:
+        - student-controller
+      summary: getAllStudent
+      operationId: getAllStudentUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Student'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    post:
+      tags:
+        - student-controller
+      summary: saveStudent
+      operationId: saveStudentUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: student
+          description: student
+          required: true
+          schema:
+            $ref: '#/definitions/Student'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Student'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+  Address:
+    type: object
+    properties:
+      address1:
+        type: string
+      address2:
+        type: string
+      country:
+        type: string
+      id:
+        type: integer
+        format: int32
+      state:
+        type: string
+    title: Address
+  Student:
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/Address'
+      firstName:
+        type: string
+      id:
+        type: integer
+        format: int32
+      lastName:
+        type: string
+      studentClass:
+        type: string
+    title: Student
